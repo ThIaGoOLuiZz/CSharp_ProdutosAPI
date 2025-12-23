@@ -6,8 +6,8 @@ using ProdutosAPI.Models;
 
 namespace ProdutosAPI.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
+    [Route("[controller]")] //Define a rota base do controlador como o nome do controlador (Produtos)
+    [ApiController] //Indica que este é um controlador de API
     public class ProdutosController : ControllerBase
     {
         private readonly AppDbContext _context; //Injeção de dependência do contexto do banco de dados
@@ -68,20 +68,20 @@ namespace ProdutosAPI.Controllers
             return Ok(produto); //Retorna o produto atualizado com status 200 OK
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("{id:int}")] //Rota recebe o ID do produto como parâmetro
         public ActionResult DeleteProduto(int id)
         {
-            var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
+            var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id); //Busca o produto pelo ID no contexto do banco
 
-            if(produto is null)
+            if (produto is null)
             {
-                return NotFound("Produto não encontrado!");
+                return NotFound("Produto não encontrado!"); //Retorna 404 caso o produto não seja encontrado
             }
 
-            _context.Produtos.Remove(produto);
-            _context.SaveChanges();
+            _context.Produtos.Remove(produto); //Remove o produto do contexto do banco
+            _context.SaveChanges(); //Salva as mudanças no banco de dados
 
-            return Ok(produto);
+            return Ok(produto); //Retorna o produto removido com status 200 OK
         }
     }
 }

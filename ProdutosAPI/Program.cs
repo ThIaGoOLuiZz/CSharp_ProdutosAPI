@@ -1,11 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using ProdutosAPI.Context;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options => 
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles
+);
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -13,7 +17,8 @@ string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConne
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(mySqlConnection, 
-    ServerVersion.AutoDetect(mySqlConnection)));
+    ServerVersion.AutoDetect(mySqlConnection))
+);
 
 var app = builder.Build();
 

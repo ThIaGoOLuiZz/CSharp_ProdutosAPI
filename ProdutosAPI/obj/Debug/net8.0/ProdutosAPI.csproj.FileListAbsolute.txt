@@ -112,3 +112,4 @@ C:\Users\thiago.gon\Desktop\ProdutosAPI\ProdutosAPI\obj\Debug\net8.0\refint\Prod
 C:\Users\thiago.gon\Desktop\ProdutosAPI\ProdutosAPI\obj\Debug\net8.0\ProdutosAPI.pdb
 C:\Users\thiago.gon\Desktop\ProdutosAPI\ProdutosAPI\obj\Debug\net8.0\ProdutosAPI.genruntimeconfig.cache
 C:\Users\thiago.gon\Desktop\ProdutosAPI\ProdutosAPI\obj\Debug\net8.0\ref\ProdutosAPI.dll
+C:\Users\thiago.gon\Desktop\ProdutosAPI\ProdutosAPI\obj\Debug\net8.0\ProdutosAPI.sourcelink.json
