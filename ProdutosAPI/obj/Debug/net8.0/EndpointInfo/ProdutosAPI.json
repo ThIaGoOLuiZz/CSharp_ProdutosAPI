@@ -263,68 +263,20 @@
         }
       }
     },
-    "/primeiroProduto": {
+    "/api/Produtos/{valor}": {
       "get": {
         "tags": [
           "Produtos"
         ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Produto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Produto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Produto"
-                }
-              }
+        "parameters": [
+          {
+            "name": "valor",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
-        }
-      }
-    },
-    "/api/Produtos/teste": {
-      "get": {
-        "tags": [
-          "Produtos"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Produto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Produto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Produto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Produtos/primeiroProduto": {
-      "get": {
-        "tags": [
-          "Produtos"
         ],
         "responses": {
           "200": {
@@ -429,6 +381,7 @@
             "in": "path",
             "required": true,
             "schema": {
+              "minimum": 1,
               "type": "integer",
               "format": "int32"
             }

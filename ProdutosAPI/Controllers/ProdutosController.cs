@@ -20,6 +20,7 @@ namespace ProdutosAPI.Controllers
         [HttpGet("/primeiroProduto")] //Barra ignora o nome do controller na rota
         [HttpGet("teste")] //Rota alternativa para acessar o mesmo método
         [HttpGet("primeiroProduto")] //Rota alternativa para acessar o mesmo método
+        [HttpGet("{valor:alpha:length(5):range(5,10)}")] //Rota que espera um valor alfabético como parâmetro. O parâmetro deve ter exatamente 5 caracteres. "range" define o tamanho minimo e maximo esperado
         public ActionResult<Produto> GetPrimeiroProdutos() //ActionResult permite retornar ou um status ou um objeto (Lista de produtos)
         {
             var produto = _context.Produtos.FirstOrDefault(); //Pega os produtos do contexto do banco e converte para lista
@@ -33,29 +34,29 @@ namespace ProdutosAPI.Controllers
 
 
         [HttpGet]
-        public ActionResult<IEnumerable<Produto>> GetProdutos() //ActionResult permite retornar ou um status ou um objeto (Lista de produtos)
+        public async Task<ActionResult<IEnumerable<Produto>>> GetProdutosAsync() //ActionResult permite retornar ou um status ou um objeto (Lista de produtos)
         {
-            var produtos = _context.Produtos.ToList(); //Pega os produtos do contexto do banco e converte para lista
+            var produtos = _context.Produtos.ToListAsync(); //Pega os produtos do contexto do banco e converte para lista
             if (produtos is null)
             {
                 return NotFound("Produtos não encontrados!"); //Retorna 404 caso a lista esteja nula
             }
 
-            return produtos; //Retorna a lista de produtos com status 200 OK
+            return await produtos; //Retorna a lista de produtos com status 200 OK
         }
 
-        [HttpGet("{id:int}/{param2=Default}", Name = "ObterProduto")] //Rota recebe o ID do produto como parâmetro e define um nome para a rota. O segundo parâmetro é opcional com valor padrão "Default"
-        public ActionResult<Produto> GetProduto(int id, string param2)
+        [HttpGet("{id:int:min(1)}/{param2=Default}", Name = "ObterProduto")] //Rota recebe o ID do produto como parâmetro e define um nome para a rota. O segundo parâmetro é opcional com valor padrão "Default". "min" é usado para definir o valor minimo esperado
+        public async Task<ActionResult<Produto>> GetProdutoAsync(int id, string param2)
         {
             var parametro = param2; //Exemplo de uso do segundo parâmetro na rota
 
-            var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id); //Busca o produto pelo ID no contexto do banco
+            var produto = _context.Produtos.FirstOrDefaultAsync(p => p.ProdutoId == id); //Busca o produto pelo ID no contexto do banco
             if (produto is null)
             {
                 return NotFound("Produto não encontrado!"); //Retorna 404 caso o produto não seja encontrado
             }
 
-            return produto; //Retorna o produto encontrado com status 200 OK
+            return await produto; //Retorna o produto encontrado com status 200 OK
         }
 
         [HttpPost]

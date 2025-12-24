@@ -257,51 +257,17 @@
   {
     "ContainingType": "ProdutosAPI.Controllers.ProdutosController",
     "Method": "GetPrimeiroProdutos",
-    "RelativePath": "api/Produtos/primeiroProduto",
+    "RelativePath": "api/Produtos/{valor}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
+    "Parameters": [
       {
-        "Type": "ProdutosAPI.Models.Produto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
+        "Name": "valor",
+        "Type": "",
+        "IsRequired": true
       }
-    ]
-  },
-  {
-    "ContainingType": "ProdutosAPI.Controllers.ProdutosController",
-    "Method": "GetPrimeiroProdutos",
-    "RelativePath": "api/Produtos/teste",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "ProdutosAPI.Models.Produto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "ProdutosAPI.Controllers.ProdutosController",
-    "Method": "GetPrimeiroProdutos",
-    "RelativePath": "primeiroProduto",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
+    ],
     "ReturnTypes": [
       {
         "Type": "ProdutosAPI.Models.Produto",
