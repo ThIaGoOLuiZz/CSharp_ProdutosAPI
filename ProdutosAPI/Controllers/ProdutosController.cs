@@ -6,7 +6,7 @@ using ProdutosAPI.Models;
 
 namespace ProdutosAPI.Controllers
 {
-    [Route("[controller]")] //Define a rota base do controlador como o nome do controlador (Produtos)
+    [Route("api/[controller]")] //Define a rota base do controlador como o nome do controlador (Produtos)
     [ApiController] //Indica que este é um controlador de API
     public class ProdutosController : ControllerBase
     {
@@ -16,6 +16,21 @@ namespace ProdutosAPI.Controllers
         {
             _context = context;
         }
+
+        [HttpGet("/primeiroProduto")] //Barra ignora o nome do controller na rota
+        [HttpGet("teste")] //Rota alternativa para acessar o mesmo método
+        [HttpGet("primeiroProduto")] //Rota alternativa para acessar o mesmo método
+        public ActionResult<Produto> GetPrimeiroProdutos() //ActionResult permite retornar ou um status ou um objeto (Lista de produtos)
+        {
+            var produto = _context.Produtos.FirstOrDefault(); //Pega os produtos do contexto do banco e converte para lista
+            if (produto is null)
+            {
+                return NotFound("Produto não encontrado!"); //Retorna 404 caso a lista esteja nula
+            }
+
+            return produto; //Retorna a lista de produtos com status 200 OK
+        }
+
 
         [HttpGet]
         public ActionResult<IEnumerable<Produto>> GetProdutos() //ActionResult permite retornar ou um status ou um objeto (Lista de produtos)
@@ -29,9 +44,11 @@ namespace ProdutosAPI.Controllers
             return produtos; //Retorna a lista de produtos com status 200 OK
         }
 
-        [HttpGet("{id:int}", Name = "ObterProduto")] //Rota recebe o ID do produto como parâmetro e define um nome para a rota
-        public ActionResult<Produto> GetProduto(int id)
+        [HttpGet("{id:int}/{param2=Default}", Name = "ObterProduto")] //Rota recebe o ID do produto como parâmetro e define um nome para a rota. O segundo parâmetro é opcional com valor padrão "Default"
+        public ActionResult<Produto> GetProduto(int id, string param2)
         {
+            var parametro = param2; //Exemplo de uso do segundo parâmetro na rota
+
             var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id); //Busca o produto pelo ID no contexto do banco
             if (produto is null)
             {
