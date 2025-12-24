@@ -151,7 +151,7 @@
   },
   {
     "ContainingType": "ProdutosAPI.Controllers.ProdutosController",
-    "Method": "GetProdutos",
+    "Method": "GetProdutosAsync",
     "RelativePath": "api/Produtos",
     "HttpMethod": "GET",
     "IsController": true,
@@ -224,7 +224,7 @@
   },
   {
     "ContainingType": "ProdutosAPI.Controllers.ProdutosController",
-    "Method": "GetProduto",
+    "Method": "GetProdutoAsync",
     "RelativePath": "api/Produtos/{id}/{param2}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -239,6 +239,11 @@
         "Name": "param2",
         "Type": "System.String",
         "IsRequired": false
+      },
+      {
+        "Name": "nome",
+        "Type": "System.String",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [
@@ -268,6 +273,66 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": [
+      {
+        "Type": "ProdutosAPI.Models.Produto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ProdutosAPI.Controllers.ProdutosController",
+    "Method": "GetPrimeiroProdutos",
+    "RelativePath": "api/Produtos/primeiroProduto",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "ProdutosAPI.Models.Produto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ProdutosAPI.Controllers.ProdutosController",
+    "Method": "GetPrimeiroProdutos",
+    "RelativePath": "api/Produtos/teste",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "ProdutosAPI.Models.Produto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ProdutosAPI.Controllers.ProdutosController",
+    "Method": "GetPrimeiroProdutos",
+    "RelativePath": "primeiroProduto",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": [
       {
         "Type": "ProdutosAPI.Models.Produto",

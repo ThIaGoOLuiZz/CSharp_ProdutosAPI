@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using ProdutosAPI.Context;
 using ProdutosAPI.Models;
@@ -46,9 +47,12 @@ namespace ProdutosAPI.Controllers
         }
 
         [HttpGet("{id:int:min(1)}/{param2=Default}", Name = "ObterProduto")] //Rota recebe o ID do produto como parâmetro e define um nome para a rota. O segundo parâmetro é opcional com valor padrão "Default". "min" é usado para definir o valor minimo esperado
-        public async Task<ActionResult<Produto>> GetProdutoAsync(int id, string param2)
+        public async Task<ActionResult<Produto>> GetProdutoAsync([FromQuery]int id, string param2,[BindRequired] string nome) //O atributo BindRequired torna o parâmetro obrigatório na rota. FromQuery indica que o valor do parâmetro virá da query string
         {
             var parametro = param2; //Exemplo de uso do segundo parâmetro na rota
+            var nomeProduto = nome; //Exemplo de uso do parâmetro obrigatório
+
+
 
             var produto = _context.Produtos.FirstOrDefaultAsync(p => p.ProdutoId == id); //Busca o produto pelo ID no contexto do banco
             if (produto is null)
