@@ -465,10 +465,8 @@
         "parameters": [
           {
             "name": "id",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "schema": {
-              "minimum": 1,
               "type": "integer",
               "format": "int32"
             }
@@ -484,6 +482,14 @@
           {
             "name": "nome",
             "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "string"
@@ -624,8 +630,8 @@
             "format": "int32"
           },
           "nome": {
-            "maxLength": 80,
-            "minLength": 0,
+            "maxLength": 20,
+            "minLength": 5,
             "type": "string"
           },
           "descricao": {
@@ -634,12 +640,14 @@
             "type": "string"
           },
           "preco": {
+            "maximum": 1000,
+            "minimum": 1,
             "type": "number",
             "format": "double"
           },
           "imagemUrl": {
             "maxLength": 300,
-            "minLength": 0,
+            "minLength": 10,
             "type": "string"
           },
           "estoque": {
