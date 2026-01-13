@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\thiago.gon\\Desktop\\ProdutosAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{47207F78-DDE4-DA48-0952-D7AC078BBF09}|ProdutosAPI\\ProdutosAPI.csproj|c:\\users\\thiago.gon\\desktop\\produtosapi\\produtosapi\\controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47207F78-DDE4-DA48-0952-D7AC078BBF09}|ProdutosAPI\\ProdutosAPI.csproj|solutionrelative:produtosapi\\controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{47207F78-DDE4-DA48-0952-D7AC078BBF09}|ProdutosAPI\\ProdutosAPI.csproj|c:\\users\\thiago.gon\\desktop\\produtosapi\\produtosapi\\logging\\customlogger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47207F78-DDE4-DA48-0952-D7AC078BBF09}|ProdutosAPI\\ProdutosAPI.csproj|solutionrelative:produtosapi\\logging\\customlogger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47207F78-DDE4-DA48-0952-D7AC078BBF09}|ProdutosAPI\\ProdutosAPI.csproj|c:\\users\\thiago.gon\\desktop\\produtosapi\\produtosapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47207F78-DDE4-DA48-0952-D7AC078BBF09}|ProdutosAPI\\ProdutosAPI.csproj|solutionrelative:produtosapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CategoriasController.cs",
-              "DocumentMoniker": "C:\\Users\\thiago.gon\\Desktop\\ProdutosAPI\\ProdutosAPI\\Controllers\\CategoriasController.cs",
-              "RelativeDocumentMoniker": "ProdutosAPI\\Controllers\\CategoriasController.cs",
-              "ToolTip": "C:\\Users\\thiago.gon\\Desktop\\ProdutosAPI\\ProdutosAPI\\Controllers\\CategoriasController.cs",
-              "RelativeToolTip": "ProdutosAPI\\Controllers\\CategoriasController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB0AAAAvAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\thiago.gon\\Desktop\\ProdutosAPI\\ProdutosAPI\\Program.cs",
+              "RelativeDocumentMoniker": "ProdutosAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\thiago.gon\\Desktop\\ProdutosAPI\\ProdutosAPI\\Program.cs",
+              "RelativeToolTip": "ProdutosAPI\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-13T13:20:54.195Z",
+              "WhenOpened": "2026-01-13T14:30:34.925Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CustomLogger.cs",
+              "DocumentMoniker": "C:\\Users\\thiago.gon\\Desktop\\ProdutosAPI\\ProdutosAPI\\Logging\\CustomLogger.cs",
+              "RelativeDocumentMoniker": "ProdutosAPI\\Logging\\CustomLogger.cs",
+              "ToolTip": "C:\\Users\\thiago.gon\\Desktop\\ProdutosAPI\\ProdutosAPI\\Logging\\CustomLogger.cs",
+              "RelativeToolTip": "ProdutosAPI\\Logging\\CustomLogger.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAUwCsAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T14:11:56.635Z",
               "EditorCaption": ""
             }
           ]

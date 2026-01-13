@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ProdutosAPI.Context;
 using ProdutosAPI.Extensions;
 using ProdutosAPI.Filters;
+using ProdutosAPI.Logging;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 builder.Services.AddScoped<ApiLoggingFilter>();
+
+builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
+{
+    LogLevel = LogLevel.Information
+}));
 
 var app = builder.Build();
 
