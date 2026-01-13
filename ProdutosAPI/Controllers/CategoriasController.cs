@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ProdutosAPI.Context;
 using ProdutosAPI.Filters;
 using ProdutosAPI.Models;
+using ProdutosAPI.Repositories;
 
 namespace ProdutosAPI.Controllers
 {
@@ -11,57 +12,30 @@ namespace ProdutosAPI.Controllers
     [ApiController]
     public class CategoriasController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ICategoriaRepository _repository;
         private readonly ILogger _logger;
-        public CategoriasController(AppDbContext context, ILogger<CategoriasController> logger)
+        public CategoriasController(ICategoriaRepository repository, ILogger<CategoriasController> logger)
         {
-            _context = context;
+            _repository = repository;
             _logger = logger;
         }
 
-        [HttpGet("produtos")]
-        public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos()
-        {
-            _logger.LogInformation("======== Obtendo categorias com seus respectivos produtos ========");
-
-            return _context.Categorias
-                .AsNoTracking()
-                .Include(p => p.Produtos)
-                .Where(c => c.CategoriaId <= 5)
-                .ToList();
-        }
-
         [HttpGet]
-        [ServiceFilter(typeof(ApiLoggingFilter))]
+        [ServiceFilter(typeof(ApiLoggingFilter))] // Applying the logging filter
         public ActionResult<IEnumerable<Categoria>> GetCategorias()
         {
-            try
-            {
-                var categorias = _context.Categorias
-                    .AsNoTracking()
-                    .ToList();
-                if(categorias is null)
-                {
-                    return NotFound("Categorias não encontradas!");
-                }
-
-                return categorias;
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um problema ao tratar a sua solicitação!");
-            }
+            var categorias = _repository.GetCategorias();
+            return Ok(categorias);
         }
 
         [HttpGet("{id:int}", Name = "ObterCategoria")]
         public ActionResult<Categoria> GetCategoria(int id)
         {
-            var categoria = _context.Categorias.AsNoTracking().FirstOrDefault(c => c.CategoriaId == id);
-            if (categoria is null)
+            var categoria = _repository.GetCategoria(id);
+            if(categoria is null)
             {
                 return NotFound("Categoria não encontrada!");
             }
-
             return Ok(categoria);
         }
 
@@ -73,10 +47,9 @@ namespace ProdutosAPI.Controllers
                 return BadRequest("Categoria inválida");
             }
 
-            _context.Categorias.Add(categoria);
-            _context.SaveChanges();
+            var categoriaCriada = _repository.Create(categoria);
 
-            return new CreatedAtRouteResult("ObterCategoria", new { id = categoria.CategoriaId }, categoria);
+            return new CreatedAtRouteResult("ObterCategoria", new { id = categoriaCriada.CategoriaId }, categoriaCriada);
         }
 
         [HttpPut("{id:int}")]
@@ -87,24 +60,21 @@ namespace ProdutosAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(categoria).State = EntityState.Modified;
-            _context.SaveChanges();
-
+            _repository.Update(categoria);
             return Ok(categoria);
         }
 
         [HttpDelete("{id:int}")]
         public ActionResult<Categoria> DeleteCategoria(int id)
         {
-            var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
+            var categoria = _repository.GetCategoria(id);
 
-            if(categoria is null)
+            if (categoria is null)
             {
                 return NotFound("Categoria não encontrada!");
             }
 
-            _context.Categorias.Remove(categoria);
-            _context.SaveChanges();
+            var categoriaExcluida = _repository.Delete(id);
 
             return Ok(categoria);
         }

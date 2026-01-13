@@ -3,6 +3,7 @@ using ProdutosAPI.Context;
 using ProdutosAPI.Extensions;
 using ProdutosAPI.Filters;
 using ProdutosAPI.Logging;
+using ProdutosAPI.Repositories;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 builder.Services.AddScoped<ApiLoggingFilter>();
+
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 
 builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
 {
