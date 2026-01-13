@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProdutosAPI.Context;
+using ProdutosAPI.Filters;
 using ProdutosAPI.Models;
 
 namespace ProdutosAPI.Controllers
@@ -28,6 +29,7 @@ namespace ProdutosAPI.Controllers
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(ApiLoggingFilter))]
         public ActionResult<IEnumerable<Categoria>> GetCategorias()
         {
             try

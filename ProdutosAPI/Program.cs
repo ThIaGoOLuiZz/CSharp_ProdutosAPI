@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProdutosAPI.Context;
 using ProdutosAPI.Extensions;
+using ProdutosAPI.Filters;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(mySqlConnection, 
     ServerVersion.AutoDetect(mySqlConnection))
 );
+
+builder.Services.AddScoped<ApiLoggingFilter>();
 
 var app = builder.Build();
 
