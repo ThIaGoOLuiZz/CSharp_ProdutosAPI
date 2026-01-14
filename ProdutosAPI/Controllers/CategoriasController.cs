@@ -12,7 +12,7 @@ namespace ProdutosAPI.Controllers
     [ApiController]
     public class CategoriasController : ControllerBase
     {
-        private readonly ICategoriaRepository _repository;
+        private readonly IRepository<Categoria> _repository;
         private readonly ILogger _logger;
         public CategoriasController(ICategoriaRepository repository, ILogger<CategoriasController> logger)
         {
@@ -24,14 +24,14 @@ namespace ProdutosAPI.Controllers
         [ServiceFilter(typeof(ApiLoggingFilter))] // Applying the logging filter
         public ActionResult<IEnumerable<Categoria>> GetCategorias()
         {
-            var categorias = _repository.GetCategorias();
+            var categorias = _repository.GetAll();
             return Ok(categorias);
         }
 
         [HttpGet("{id:int}", Name = "ObterCategoria")]
         public ActionResult<Categoria> GetCategoria(int id)
         {
-            var categoria = _repository.GetCategoria(id);
+            var categoria = _repository.Get(c => c.CategoriaId == id);
             if(categoria is null)
             {
                 return NotFound("Categoria não encontrada!");
@@ -67,14 +67,14 @@ namespace ProdutosAPI.Controllers
         [HttpDelete("{id:int}")]
         public ActionResult<Categoria> DeleteCategoria(int id)
         {
-            var categoria = _repository.GetCategoria(id);
+            var categoria = _repository.Get(c => c.CategoriaId == id);
 
             if (categoria is null)
             {
                 return NotFound("Categoria não encontrada!");
             }
 
-            var categoriaExcluida = _repository.Delete(id);
+            var categoriaExcluida = _repository.Delete(categoria);
 
             return Ok(categoria);
         }

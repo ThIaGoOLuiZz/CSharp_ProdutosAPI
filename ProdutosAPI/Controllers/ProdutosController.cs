@@ -12,33 +12,31 @@ namespace ProdutosAPI.Controllers
     [ApiController] //Indica que este é um controlador de API
     public class ProdutosController : ControllerBase
     {
-        private readonly IProdutoRepository _repository;
+        private readonly IProdutoRepository _produtoRepository;
+        private readonly IRepository<Produto> _repository;
 
-        public ProdutosController(IProdutoRepository repository) //Construtor que recebe o contexto do banco de dados
+        public ProdutosController(IRepository<Produto> repository, IProdutoRepository produtoRepository) //Construtor que recebe o contexto do banco de dados
         {
             _repository = repository;
+            _produtoRepository = produtoRepository;
         }
 
-        [HttpGet("/primeiroProduto")] //Barra ignora o nome do controller na rota
-        [HttpGet("teste")] //Rota alternativa para acessar o mesmo método
-        [HttpGet("primeiroProduto")] //Rota alternativa para acessar o mesmo método
-        [HttpGet("{valor:alpha:length(5):range(5,10)}")] //Rota que espera um valor alfabético como parâmetro. O parâmetro deve ter exatamente 5 caracteres. "range" define o tamanho minimo e maximo esperado
-        public ActionResult<Produto> GetPrimeiroProdutos() //ActionResult permite retornar ou um status ou um objeto (Lista de produtos)
+        [HttpGet("produtos/{id}")]
+        public ActionResult<IEnumerable<Produto>> GetProdutosCategoria(int id)
         {
-            var produto = _context.Produtos.FirstOrDefault(); //Pega os produtos do contexto do banco e converte para lista
-            if (produto is null)
+            var produtos = _produtoRepository.GetProdutosPorCategoria(id);
+            if (produtos is null)
             {
-                return NotFound("Produto não encontrado!"); //Retorna 404 caso a lista esteja nula
+                return NotFound("Produtos não encontrados para a categoria informada!");
             }
-
-            return produto; //Retorna a lista de produtos com status 200 OK
+            return Ok(produtos);
         }
 
 
         [HttpGet]
         public ActionResult<IEnumerable<Produto>> GetProdutos() //ActionResult permite retornar ou um status ou um objeto (Lista de produtos)
         {
-            var produtos = _repository.GetProdutos().ToList(); //Pega os produtos do contexto do banco e converte para lista
+            var produtos = _repository.GetAll(); //Pega os produtos do contexto do banco e converte para lista
             if (produtos is null)
             {
                 return NotFound("Produtos não encontrados!"); //Retorna 404 caso a lista esteja nula
@@ -49,7 +47,7 @@ namespace ProdutosAPI.Controllers
         [HttpGet("{id:int:min(1)}/{param2=Default}", Name = "ObterProduto")] //Rota recebe o ID do produto como parâmetro e define um nome para a rota. O segundo parâmetro é opcional com valor padrão "Default". "min" é usado para definir o valor minimo esperado
         public ActionResult<Produto> GetProdutoAsync([FromQuery]int id, string param2,[BindRequired] string nome) //O atributo BindRequired torna o parâmetro obrigatório na rota. FromQuery indica que o valor do parâmetro virá da query string
         {
-            var produto = _repository.GetProduto(id);
+            var produto = _repository.Get(c => c.ProdutoId == id);
             if (produto is null)
             {
                 return NotFound("Produto não encontrado!"); //Retorna 404 caso o produto não seja encontrado
@@ -78,25 +76,21 @@ namespace ProdutosAPI.Controllers
                 return BadRequest();
             }
 
-            bool atualizado = _repository.Update(produto); //Atualiza o produto no contexto do banco
-            if (atualizado)
-            {
-                return Ok(produto);
-            }
-
-            return StatusCode(500, "Falha ao atualizar o produto"); //Retorna 500 caso ocorra algum erro ao atualizar o produto
-
+            var produtoAtualizado = _repository.Update(produto); //Atualiza o produto no contexto do banco
+            return Ok(produtoAtualizado); //Retorna o produto atualizado com status 200 OK
         }
 
         [HttpDelete("{id:int}")] //Rota recebe o ID do produto como parâmetro
         public ActionResult DeleteProduto(int id)
         {
-            bool deletado = _repository.Delete(id); //Remove o produto do contexto do banco
-            if (deletado)
+            var produto = _repository.Get(p => p.ProdutoId == id);
+            if(produto is null)
             {
-                return Ok("Produto excluido");
+                return NotFound("Produto não encontrado!"); //Retorna 404 caso o produto não seja encontrado
             }
-            return StatusCode(500, "Falha ao deletar o produto"); //Retorna 500 caso ocorra algum erro ao deletar o produto
+
+            _repository.Delete(produto); //Remove o produto do contexto do banco
+            return Ok();
         }
     }
 }
