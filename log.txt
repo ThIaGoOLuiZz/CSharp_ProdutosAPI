@@ -33,3 +33,68 @@ Information: 0 - ##################################################
 Information: 20101 - Executed DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
 SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImagemUrl`, `p`.`Nome`, `p`.`Preco`
 FROM `Produtos` AS `p`
+Debug: 0 - Middleware loaded
+Debug: 0 - Middleware loaded. Script /_framework/aspnetcore-browser-refresh.js (16507 B).
+Debug: 0 - Middleware loaded. Script /_framework/blazor-hotreload.js (799 B).
+Debug: 0 - Middleware loaded: DOTNET_MODIFIABLE_ASSEMBLIES=debug, __ASPNETCORE_BROWSER_TOOLS=true
+Information: 14 - Now listening on: https://localhost:7025
+Information: 14 - Now listening on: http://localhost:5139
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\thiago.gon\Desktop\ProdutosAPI\ProdutosAPI
+Debug: 1 - Response markup is scheduled to include browser refresh script injection.
+Debug: 2 - Response markup was updated to include browser refresh script injection.
+Debug: 0 - Script injected: /_framework/aspnetcore-browser-refresh.js
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ##################################################
+Information: 0 - 19:52:20
+Information: 0 - ModelState : 200
+Information: 0 - ##################################################
+Information: 20101 - Executed DbCommand (19ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImagemUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - 19:52:21
+Information: 0 - ModelState : True
+Information: 0 - ##################################################
+Information: 20101 - Executed DbCommand (23ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImagemUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImagemUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Debug: 0 - Middleware loaded
+Debug: 0 - Middleware loaded. Script /_framework/aspnetcore-browser-refresh.js (16507 B).
+Debug: 0 - Middleware loaded. Script /_framework/blazor-hotreload.js (799 B).
+Debug: 0 - Middleware loaded: DOTNET_MODIFIABLE_ASSEMBLIES=debug, __ASPNETCORE_BROWSER_TOOLS=true
+Information: 14 - Now listening on: https://localhost:7025
+Information: 14 - Now listening on: http://localhost:5139
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\thiago.gon\Desktop\ProdutosAPI\ProdutosAPI
+Debug: 1 - Response markup is scheduled to include browser refresh script injection.
+Debug: 2 - Response markup was updated to include browser refresh script injection.
+Debug: 0 - Script injected: /_framework/aspnetcore-browser-refresh.js
+Information: 20101 - Executed DbCommand (42ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categorias` (`ImagemUrl`, `Nome`)
+VALUES (@p0, @p1);
+SELECT `CategoriaId`
+FROM `Categorias`
+WHERE ROW_COUNT() = 1 AND `CategoriaId` = LAST_INSERT_ID();
+Debug: 0 - Middleware loaded
+Debug: 0 - Middleware loaded. Script /_framework/aspnetcore-browser-refresh.js (16507 B).
+Debug: 0 - Middleware loaded. Script /_framework/blazor-hotreload.js (799 B).
+Debug: 0 - Middleware loaded: DOTNET_MODIFIABLE_ASSEMBLIES=debug, __ASPNETCORE_BROWSER_TOOLS=true
+Information: 14 - Now listening on: https://localhost:7025
+Information: 14 - Now listening on: http://localhost:5139
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\thiago.gon\Desktop\ProdutosAPI\ProdutosAPI
+Debug: 1 - Response markup is scheduled to include browser refresh script injection.
+Debug: 2 - Response markup was updated to include browser refresh script injection.
+Debug: 0 - Script injected: /_framework/aspnetcore-browser-refresh.js

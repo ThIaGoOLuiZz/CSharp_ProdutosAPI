@@ -5,44 +5,6 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Categorias/produtos": {
-      "get": {
-        "tags": [
-          "Categorias"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Categoria"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Categoria"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Categoria"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/Categorias": {
       "get": {
         "tags": [
@@ -593,10 +555,6 @@
         ],
         "type": "object",
         "properties": {
-          "categoriaId": {
-            "type": "integer",
-            "format": "int32"
-          },
           "nome": {
             "maxLength": 80,
             "minLength": 0,
@@ -606,13 +564,6 @@
             "maxLength": 300,
             "minLength": 0,
             "type": "string"
-          },
-          "produtos": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Produto"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false
