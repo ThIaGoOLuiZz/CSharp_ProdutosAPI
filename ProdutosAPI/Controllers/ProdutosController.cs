@@ -12,19 +12,17 @@ namespace ProdutosAPI.Controllers
     [ApiController] //Indica que este é um controlador de API
     public class ProdutosController : ControllerBase
     {
-        private readonly IProdutoRepository _produtoRepository;
-        private readonly IRepository<Produto> _repository;
+        private readonly IUnitOfWork _uof;
 
-        public ProdutosController(IRepository<Produto> repository, IProdutoRepository produtoRepository) //Construtor que recebe o contexto do banco de dados
+        public ProdutosController(IUnitOfWork unitOfWork)
         {
-            _repository = repository;
-            _produtoRepository = produtoRepository;
+            _uof = unitOfWork;
         }
 
         [HttpGet("produtos/{id}")]
         public ActionResult<IEnumerable<Produto>> GetProdutosCategoria(int id)
         {
-            var produtos = _produtoRepository.GetProdutosPorCategoria(id);
+            var produtos = _uof.ProdutoRepository.GetProdutosPorCategoria(id);
             if (produtos is null)
             {
                 return NotFound("Produtos não encontrados para a categoria informada!");
@@ -36,7 +34,7 @@ namespace ProdutosAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Produto>> GetProdutos() //ActionResult permite retornar ou um status ou um objeto (Lista de produtos)
         {
-            var produtos = _repository.GetAll(); //Pega os produtos do contexto do banco e converte para lista
+            var produtos = _uof.ProdutoRepository.GetAll(); //Pega os produtos do contexto do banco e converte para lista
             if (produtos is null)
             {
                 return NotFound("Produtos não encontrados!"); //Retorna 404 caso a lista esteja nula
@@ -47,7 +45,7 @@ namespace ProdutosAPI.Controllers
         [HttpGet("{id:int:min(1)}/{param2=Default}", Name = "ObterProduto")] //Rota recebe o ID do produto como parâmetro e define um nome para a rota. O segundo parâmetro é opcional com valor padrão "Default". "min" é usado para definir o valor minimo esperado
         public ActionResult<Produto> GetProdutoAsync([FromQuery]int id, string param2,[BindRequired] string nome) //O atributo BindRequired torna o parâmetro obrigatório na rota. FromQuery indica que o valor do parâmetro virá da query string
         {
-            var produto = _repository.Get(c => c.ProdutoId == id);
+            var produto = _uof.ProdutoRepository.Get(c => c.ProdutoId == id);
             if (produto is null)
             {
                 return NotFound("Produto não encontrado!"); //Retorna 404 caso o produto não seja encontrado
@@ -63,7 +61,8 @@ namespace ProdutosAPI.Controllers
                 return BadRequest(); //Retorna 400 caso o produto seja nulo
             }
 
-            var novoProduto = _repository.Create(produto); //Adiciona o produto ao contexto do banco
+            var novoProduto = _uof.ProdutoRepository.Create(produto); //Adiciona o produto ao contexto do banco
+            _uof.Commit(); //Salva as alterações no banco de dados
             return new CreatedAtRouteResult("ObterProduto", //Retorna 201 Created com a rota para obter o produto criado
                 new { id = novoProduto.ProdutoId }, novoProduto);
         }
@@ -76,20 +75,23 @@ namespace ProdutosAPI.Controllers
                 return BadRequest();
             }
 
-            var produtoAtualizado = _repository.Update(produto); //Atualiza o produto no contexto do banco
+            var produtoAtualizado = _uof.ProdutoRepository.Update(produto); //Atualiza o produto no contexto do banco
+            _uof.Commit(); //Salva as alterações no banco de dados
             return Ok(produtoAtualizado); //Retorna o produto atualizado com status 200 OK
         }
 
         [HttpDelete("{id:int}")] //Rota recebe o ID do produto como parâmetro
         public ActionResult DeleteProduto(int id)
         {
-            var produto = _repository.Get(p => p.ProdutoId == id);
-            if(produto is null)
+            var produto = _uof.ProdutoRepository.Get(p => p.ProdutoId == id);
+            _uof.Commit(); //Salva as alterações no banco de dados
+            if (produto is null)
             {
                 return NotFound("Produto não encontrado!"); //Retorna 404 caso o produto não seja encontrado
             }
 
-            _repository.Delete(produto); //Remove o produto do contexto do banco
+            _uof.ProdutoRepository.Delete(produto); //Remove o produto do contexto do banco
+            _uof.Commit(); //Salva as alterações no banco de dados
             return Ok();
         }
     }
