@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ProdutosAPI.Context;
+using ProdutosAPI.DTOs.Mappins;
 using ProdutosAPI.Extensions;
 using ProdutosAPI.Filters;
 using ProdutosAPI.Logging;
@@ -38,6 +39,8 @@ builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderCon
 {
     LogLevel = LogLevel.Information
 }));
+
+builder.Services.AddAutoMapper(typeof(ProdutoDTOMappingProfile));
 
 var app = builder.Build();
 
