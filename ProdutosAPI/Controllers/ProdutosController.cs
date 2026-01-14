@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using ProdutosAPI.Context;
 using ProdutosAPI.DTOs;
 using ProdutosAPI.Models;
+using ProdutosAPI.Pagination;
 using ProdutosAPI.Repositories;
 
 namespace ProdutosAPI.Controllers
@@ -22,6 +23,15 @@ namespace ProdutosAPI.Controllers
         {
             _uof = unitOfWork;
             _mapper = mapper;
+        }
+
+        [HttpGet("pagination")]
+        public ActionResult<IEnumerable<ProdutoDTO>> Get([FromQuery] ProdutosParamenters produtosParamenters)
+        {
+            var produtos = _uof.ProdutoRepository.GetProdutos(produtosParamenters);
+            var produtosDto = _mapper.Map<IEnumerable<ProdutoDTO>>(produtos);
+
+            return Ok(produtosDto);
         }
 
         [HttpGet("produtos/{id}")]

@@ -1,5 +1,6 @@
 ﻿using ProdutosAPI.Context;
 using ProdutosAPI.Models;
+using ProdutosAPI.Pagination;
 
 namespace ProdutosAPI.Repositories
 {
@@ -7,6 +8,13 @@ namespace ProdutosAPI.Repositories
     {
         public ProdutoRepository(AppDbContext context) : base(context)
         {
+        }
+
+        public IEnumerable<Produto> GetProdutos(ProdutosParamenters produtosParams)
+        {
+            return GetAll().OrderBy(p => p.Nome)
+                           .Skip((produtosParams.PageNumber - 1) * produtosParams.PageSize)
+                           .Take(produtosParams.PageSize).ToList();
         }
 
         public IEnumerable<Produto> GetProdutosPorCategoria(int id)
