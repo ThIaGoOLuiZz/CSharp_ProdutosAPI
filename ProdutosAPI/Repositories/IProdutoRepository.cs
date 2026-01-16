@@ -5,7 +5,7 @@ namespace ProdutosAPI.Repositories
 {
     public interface IProdutoRepository : IRepository<Produto>
     {
-        IEnumerable<Produto> GetProdutos(ProdutosParamenters produtosParams);
+        PagedList<Produto> GetProdutos(ProdutosParamenters produtosParams);
         IEnumerable<Produto> GetProdutosPorCategoria(int id);
     }
 }

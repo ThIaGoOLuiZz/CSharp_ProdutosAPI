@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProdutosAPI.Context;
 using ProdutosAPI.DTOs.Mappins;
@@ -20,6 +21,9 @@ builder.Services.AddControllers(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
 string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 
